@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block head_title %}
+    {{ block.super }} | {{ recipe.title }}
+{% endblock head_title %}
+
+{% block content %}
+
+<h1>{{ recipe.title }}</h1>
+    <small>dodano: {{ recipe.created_at }}, edytowano:{{ recipe.updated_at }}</small></br></br>
+{{ recipe.body|linebreaks }}<br>
+
+
+{% endblock content %}

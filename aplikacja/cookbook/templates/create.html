@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block head_title %}
+    {{ block.super }} | update | {{ recipe.title }}
+{% endblock head_title %}
+
+{% block content %}
+
+
+
+<h1>Dodaj</h1>
+<form method="POST">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Dodaj"/>
+</form>
+
+
+
+{% endblock content %}

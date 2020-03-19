@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="row row-cols-1 row-cols-md-2">
+{% for recipe in recipes %}
+
+    <div class="col mb-4">
+        <div class="card">
+          <!--<img src="..." class="card-img-top" alt="...">-->
+          <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'show' id=recipe.id %}"></a>{{ recipe.title }}</h5>
+              <p class="card-text">{{ recipe.body|linebreaks|truncatechars:50 }}</p>
+              <a href="{% url 'show' id=recipe.id %}" class="btn btn-primary">Zobacz teraz!</a>
+          </div>
+            <div class="card-footer">
+                <small class="text-muted">Dodano: {{ recipe.created_at|timesince }}</small>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+</div>
+{% endblock content %}
