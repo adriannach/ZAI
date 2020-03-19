@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from django.conf import settings
 from django.db import models
 
 def upload_loc(instance, filename):
@@ -7,6 +7,7 @@ def upload_loc(instance, filename):
     return "%s/%s" %(instance.id, filename)
 
 class Recipe(models.Model):
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     def __str__(self):
         return self.title
