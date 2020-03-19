@@ -2,14 +2,22 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-
+from django.core.paginator import Paginator
 from .models import Recipe
 from .forms import RecipeForm
 
 def recipe_index(request):
-    recipes = Recipe.objects.all()
+    recipes = Recipe.objects.all().order_by("-created_at")
+    paginator = Paginator(recipes, 6) # Show 25 contacts per page.
 
-#    if request.user.is_authenticated:
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'recipes': page_obj
+    }
+    return render(request, 'index.html', context)
+
+    #    if request.user.is_authenticated:
  #       context = {
   #          'title': 'Index zalogowany'
    #     }
@@ -17,13 +25,9 @@ def recipe_index(request):
  #       context = {
   #          'title': 'Index nie zalogowany'
    #     }
-    context = {
-        'recipes': recipes
-    }
-    return render(request, 'index.html', context)
 
 def recipe_create(request):
-    form = RecipeForm(request.POST or None)
+    form = RecipeForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         recipe = form.save(commit=False)
         recipe.save()
@@ -43,7 +47,7 @@ def recipe_show(request, id=None):
 
 def recipe_update(request, id=None):
     recipe = get_object_or_404(Recipe, id=id)
-    form = RecipeForm(request.POST or None, instance=recipe)
+    form = RecipeForm(request.POST or None, request.FILES or None, instance=recipe)
     if form.is_valid():
         recipe = form.save(commit=False)
         recipe.save()
