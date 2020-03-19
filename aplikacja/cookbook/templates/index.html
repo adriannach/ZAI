@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
 
+    <form method="GET" action="">
+        <input type="text"name="q" placeholder="Przepis..." value="{{  request.GET.q }}"/>
+        <input type="submit" value="Szukaj"/>
+    </form>
+
 <div class="row row-cols-1 row-cols-md-2">
 {% for recipe in recipes %}
 
@@ -10,7 +15,7 @@
                 <img src="{{ recipe.image.url }}" class="card-img-top" alt="...">
             {% endif %}
             <div class="card-body">
-              <h5 class="card-title"><a href="{% url 'show' id=recipe.id %}"></a>{{ recipe.title }}</h5>
+              <h5 class="card-title"><a href="{% url 'show' id=recipe.id %}"/>{{ recipe.title }}</h5>
               <p class="card-text">{{ recipe.body|linebreaks|truncatechars:50 }}</p>
               <a href="{% url 'show' id=recipe.id %}" class="btn btn-primary">Zobacz teraz!</a>
           </div>
@@ -25,8 +30,7 @@
 <div class="pagination">
     <span class="step-links">
         {% if recipes.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ recipes.previous_page_number }}">previous</a>
+            <a href="?page={{ recipes.previous_page_number }}{%  if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
         {% endif %}
 
         <span class="current">
@@ -34,8 +38,7 @@
         </span>
 
         {% if recipes.has_next %}
-            <a href="?page={{ recipes.next_page_number }}">next</a>
-            <a href="?page={{ recipes.paginator.num_pages }}">last &raquo;</a>
+            <a href="?page={{ recipes.next_page_number }}{%  if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
         {% endif %}
     </span>
 </div>

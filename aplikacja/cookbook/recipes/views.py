@@ -1,13 +1,22 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.core.paginator import Paginator
+from django.db.models import Q
+
 from .models import Recipe
 from .forms import RecipeForm
 
 def recipe_index(request):
     recipes = Recipe.objects.all().order_by("-created_at")
+
+    query = request.GET.get("q")
+    if query:
+        recipes = recipes.filter(   Q(title__icontains=query)  |
+                                    Q(body__icontains=query)
+                                ).distinct()
+
     paginator = Paginator(recipes, 6) # Show 25 contacts per page.
 
     page_number = request.GET.get('page')
@@ -17,19 +26,17 @@ def recipe_index(request):
     }
     return render(request, 'index.html', context)
 
-    #    if request.user.is_authenticated:
- #       context = {
-  #          'title': 'Index zalogowany'
-   #     }
-#    else:
- #       context = {
-  #          'title': 'Index nie zalogowany'
-   #     }
-
 def recipe_create(request):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
+
+    if not request.user.is_authenticated:
+        raise Http404
+
     form = RecipeForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         recipe = form.save(commit=False)
+        recipe.user_id = request.user
         recipe.save()
         messages.success(request, "Dodano przepis")
         return HttpResponseRedirect(reverse('show', args=(recipe.id,)))
