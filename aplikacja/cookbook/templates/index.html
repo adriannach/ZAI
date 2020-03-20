@@ -16,7 +16,7 @@
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title"><a href="{% url 'show' id=recipe.id %}">{{ recipe.title }}</a></h5>
-              <p class="card-text">{{ recipe.body|safe|truncatechars:150 }}</p>
+              <p class="card-text">{{ recipe.mini_body|truncatechars:500 }}</p>
               <a href="{% url 'show' id=recipe.id %}" class="btn btn-primary">Zobacz teraz!</a>
           </div>
             <div class="card-footer">
