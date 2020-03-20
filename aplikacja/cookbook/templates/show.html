@@ -13,6 +13,9 @@
     <a class="btn btn-primary" href="{% url 'delete' id=recipe.id %}" role="button">Usuń</a>
     <a class="btn btn-primary" href="{% url 'update' id=recipe.id %}" role="button">Edytuj</a>
     </br></br>
-{{ recipe.body|safe }}<br>
+
+    <div class="body_img">
+        {{ recipe.body|safe }}<br>
+    </div>
 
 {% endblock content %}

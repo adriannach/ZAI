@@ -14,5 +14,6 @@ class Recipe(models.Model):
         return self.title
     image = models.ImageField(upload_to=upload_loc, null=True, blank=True)
     body = RichTextField(blank=True, null=True)
+    mini_body = models.TextField(max_length=500, blank=True)
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
