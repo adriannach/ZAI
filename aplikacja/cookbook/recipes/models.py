@@ -2,6 +2,7 @@ from datetime import datetime
 from django.conf import settings
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.contrib.contenttypes.models import ContentType
 
 def upload_loc(instance, filename):
     filename = datetime.now()
@@ -17,3 +18,10 @@ class Recipe(models.Model):
     mini_body = models.TextField(max_length=500, blank=True)
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
+
+    @property
+    def get_content_type(self):
+        recipe = self
+        content_type = ContentType.objects.get_for_model(recipe.__class__)
+        return content_type
+

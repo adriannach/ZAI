@@ -4,9 +4,11 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.core.paginator import Paginator
 from django.db.models import Q
-
 from .models import Recipe
 from .forms import RecipeForm
+from comments.models import Comment
+from comments.forms import CommentForm
+from django.contrib.contenttypes.models import ContentType
 
 def recipe_index(request):
     recipes = Recipe.objects.all().order_by("-created_at")
@@ -47,8 +49,28 @@ def recipe_create(request):
 
 def recipe_show(request, id=None):
     recipe = get_object_or_404(Recipe, id=id)
+    comments = Comment.objects.filter_by_recipe(recipe)
+
+    initial_data = {
+        "content_type": recipe.get_content_type,
+        "object_id": recipe.id
+    }
+    form_comment = CommentForm(request.POST or None, initial=initial_data)
+    if form_comment.is_valid():
+        #c_type = form_comment.cleaned_data.get("content_type")
+        content_type = ContentType.objects.get(model="recipe")
+        obj_id = form_comment.cleaned_data.get("object_id")
+        content_data = form_comment.cleaned_data.get("content")
+        new_comment, created = Comment.objects.get_or_create(
+            user = request.user,
+            content_type = content_type,
+            object_id = obj_id,
+            body = content_data
+        )
     context = {
-        'recipe': recipe
+        'recipe': recipe,
+        'comments': comments,
+        'form_comment': form_comment,
     }
     return render(request, 'show.html', context)
 
