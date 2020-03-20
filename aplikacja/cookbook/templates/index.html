@@ -15,12 +15,12 @@
                 <img src="{{ recipe.image.url }}" class="card-img-top" alt="...">
             {% endif %}
             <div class="card-body">
-              <h5 class="card-title"><a href="{% url 'show' id=recipe.id %}"/>{{ recipe.title }}</h5>
-              <p class="card-text">{{ recipe.body|linebreaks|truncatechars:50 }}</p>
+                <h5 class="card-title"><a href="{% url 'show' id=recipe.id %}">{{ recipe.title }}</a></h5>
+              <p class="card-text">{{ recipe.body|safe|truncatechars:150 }}</p>
               <a href="{% url 'show' id=recipe.id %}" class="btn btn-primary">Zobacz teraz!</a>
           </div>
             <div class="card-footer">
-                <small class="text-muted">Dodano: {{ recipe.created_at|timesince }}</small>
+                <small class="text-muted">Dodano: {{ recipe.created_at|timesince }} przez {{ recipe.user }}</small>
             </div>
         </div>
     </div>

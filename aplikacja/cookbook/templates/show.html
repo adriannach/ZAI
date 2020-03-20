@@ -9,10 +9,10 @@
     <img src="{{ recipe.image.url }}" alt="img" class="img-fluid">
 {% endif %}
     <h1>{{ recipe.title }}</h1>
-    {{ recipe.user_id }}<small> dodano: {{ recipe.created_at }}, edytowano:{{ recipe.updated_at }}</small>
+    {{ recipe.user }}<small> dodano: {{ recipe.created_at }}, edytowano:{{ recipe.updated_at }}</small>
     <a class="btn btn-primary" href="{% url 'delete' id=recipe.id %}" role="button">Usuń</a>
     <a class="btn btn-primary" href="{% url 'update' id=recipe.id %}" role="button">Edytuj</a>
     </br></br>
-{{ recipe.body|linebreaks }}<br>
+{{ recipe.body|safe }}<br>
 
 {% endblock content %}

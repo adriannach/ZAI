@@ -36,7 +36,7 @@ def recipe_create(request):
     form = RecipeForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         recipe = form.save(commit=False)
-        recipe.user_id = request.user
+        recipe.user = request.user
         recipe.save()
         messages.success(request, "Dodano przepis")
         return HttpResponseRedirect(reverse('show', args=(recipe.id,)))
