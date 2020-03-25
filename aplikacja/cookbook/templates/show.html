@@ -48,10 +48,12 @@
     <span><b>Komentarze</b></span>
 
     {% if request.user.is_authenticated %}
-    <form method="POST" action="{% url 'comment_create' id=recipe.id %}">{% csrf_token %}
-        {{ form_comment|crispy }}
-        <input class="btn btn-primary" type="submit" value="Dodaj">
-    </form>
+        <div class="comment_div">
+            <form method="POST" action="{% url 'comment_create' id=recipe.id %}">{% csrf_token %}
+                {{ form_comment|crispy }}
+                <input class="btn btn-primary" type="submit" value="Dodaj">
+            </form>
+        </div>
     {% endif %}
     <hr>
     <div>

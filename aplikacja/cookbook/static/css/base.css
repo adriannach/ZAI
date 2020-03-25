@@ -1,6 +1,3 @@
-h1 {
-    color: #00ad9c;
-}
 
 blockquote {
   background: #f9f9f9 ;
@@ -13,6 +10,6 @@ blockquote p {
   display: inline;
 }
 
-label.requiredField {
+.comment_div label.requiredField {
     display: none !important;
 }

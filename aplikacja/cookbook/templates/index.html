@@ -1,22 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
 
-    <a class="btn btn-primary" href="{% url 'create' %}" role="button">Dodaj</a>
-    <a class="btn btn-primary" href="/admin/">Admin</a>
-    <hr>
-    <br><br>
-
-
-    <form method="GET" action="">
-        <div class="input-group">
-            <input type="text" class="form-control" name="q" placeholder="Przepis..." value="{{  request.GET.q }}"/>
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-outline-secondary" value="Szukaj"><i class="fas fa-search"></i></button>
-            </div>
-        </div>
-    </form>
-    <br>
-
 <div class="row row-cols-1 row-cols-md-2">
 {% for recipe in recipes %}
 
