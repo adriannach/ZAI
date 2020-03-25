@@ -21,6 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path('', include('recipes.urls')),
+    path('', include('comments.urls')),
     path('admin/', admin.site.urls),
     #url(r'^api-auth/', include('rest_framework.urls'))
 ]

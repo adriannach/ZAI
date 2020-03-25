@@ -19,9 +19,3 @@ class Recipe(models.Model):
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
 
-    @property
-    def get_content_type(self):
-        recipe = self
-        content_type = ContentType.objects.get_for_model(recipe.__class__)
-        return content_type
-

@@ -20,3 +20,7 @@ blockquote:before {
 blockquote p {
   display: inline;
 }
+
+label.requiredField {
+    display: none !important;
+}
