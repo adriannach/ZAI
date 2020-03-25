@@ -16,12 +16,17 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import include, path
-
 from django.conf import settings
 from django.conf.urls.static import static
+from accounts.views import (login_view, register_view, logout_view)
+
 urlpatterns = [
-    path('', include('recipes.urls')),
+    path('', include('comments.urls')),
     path('admin/', admin.site.urls),
+    path('login/', login_view),
+    path('register/', register_view),
+    path('logout/', logout_view),
+    path('', include('recipes.urls')),
     #url(r'^api-auth/', include('rest_framework.urls'))
 ]
 

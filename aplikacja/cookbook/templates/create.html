@@ -1,19 +1,21 @@
 {% extends "layout.html" %}
+{% load crispy_forms_tags %}
 
 {% block head_title %}
     {{ block.super }} | update | {{ recipe.title }}
 {% endblock head_title %}
 
 {% block content %}
-
+<div class="container">
 
 
 <h1>Dodaj</h1>
 <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-{{ form.as_p }}
+    {{ form|crispy }}
+    {{ form.media }}
 <input type="submit" value="Dodaj"/>
 </form>
 
 
-
+</div>
 {% endblock content %}
