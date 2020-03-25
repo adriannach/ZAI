@@ -47,6 +47,22 @@ INSTALLED_APPS = [
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'basic',
+        'width': '100%',
+    },
+}
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'basic',
+        'width': '100%',
+    },
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

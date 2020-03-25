@@ -6,9 +6,13 @@
 {% endblock head_title %}
 
 {% block content %}
-{%  if recipe.image %}
-    <img src="{{ recipe.image.url }}" alt="img" class="img-fluid">
-{% endif %}
+
+    <div class="container">
+
+    {%  if recipe.image %}
+        <img src="{{ recipe.image.url }}" alt="img" class="img-fluid">
+    {% endif %}
+
     <h1>{{ recipe.title }}</h1>
     {{ recipe.user }}<small> dodano: {{ recipe.created_at }}, edytowano:{{ recipe.updated_at }}</small>
 
@@ -105,5 +109,6 @@
     {% endfor %}
 
 
+    </div>
     </div>
 {% endblock content %}

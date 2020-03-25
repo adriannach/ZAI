@@ -1,4 +1,7 @@
-
+a {
+ text-decoration: none !important;
+ color: transparent;
+}
 blockquote {
   background: #f9f9f9 ;
   border-left: 3px solid #ccc;
@@ -20,4 +23,12 @@ blockquote p {
 
 ul {
 list-style-type: none;
+}
+
+.django-ckeditor-widget {
+
+
+
+    display: flex !important;
+
 }
