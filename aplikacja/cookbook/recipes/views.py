@@ -49,33 +49,24 @@ def recipe_create(request):
 
 def recipe_show(request, id=None):
     recipe = get_object_or_404(Recipe, id=id)
-    comments = Comment.objects.filter_by_recipe(recipe)
+    comments = Comment.objects.all().filter(recipe=id).order_by("-created_at")
 
-    initial_data = {
-        "content_type": recipe.get_content_type,
-        "object_id": recipe.id
-    }
-    form_comment = CommentForm(request.POST or None, initial=initial_data)
-    if form_comment.is_valid():
-        #c_type = form_comment.cleaned_data.get("content_type")
-        content_type = ContentType.objects.get(model="recipe")
-        obj_id = form_comment.cleaned_data.get("object_id")
-        content_data = form_comment.cleaned_data.get("content")
-        new_comment, created = Comment.objects.get_or_create(
-            user = request.user,
-            content_type = content_type,
-            object_id = obj_id,
-            body = content_data
-        )
+    form_comment = CommentForm(request.POST or None)
+
     context = {
         'recipe': recipe,
         'comments': comments,
-        'form_comment': form_comment,
+        'form_comment': form_comment
     }
     return render(request, 'show.html', context)
 
 def recipe_update(request, id=None):
     recipe = get_object_or_404(Recipe, id=id)
+
+    if recipe.user != request.user:
+        messages.success(request, "Nie jesteś twórcą przepisu")
+        raise Http404
+
     form = RecipeForm(request.POST or None, request.FILES or None, instance=recipe)
     if form.is_valid():
         recipe = form.save(commit=False)
@@ -90,6 +81,11 @@ def recipe_update(request, id=None):
 
 def recipe_delete(request, id=None):
     recipe = get_object_or_404(Recipe, id=id)
+
+    if recipe.user != request.user:
+        messages.success(request, "Nie jesteś twórcą przepisu")
+        raise Http404
+
     recipe.delete()
     messages.success(request, "Usunięto post")
     return redirect('index')

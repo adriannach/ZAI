@@ -12,3 +12,7 @@ blockquote {
 blockquote p {
   display: inline;
 }
+
+label.requiredField {
+    display: none !important;
+}

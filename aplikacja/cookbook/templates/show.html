@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% load crispy_forms_tags %}
+
 {% block head_title %}
     {{ block.super }} | {{ recipe.title }}
 {% endblock head_title %}
@@ -10,8 +11,34 @@
 {% endif %}
     <h1>{{ recipe.title }}</h1>
     {{ recipe.user }}<small> dodano: {{ recipe.created_at }}, edytowano:{{ recipe.updated_at }}</small>
-    <a class="btn btn-primary" href="{% url 'delete' id=recipe.id %}" role="button">Usuń</a>
-    <a class="btn btn-primary" href="{% url 'update' id=recipe.id %}" role="button">Edytuj</a>
+
+    {% if request.user == recipe.user %}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Usuń
+        </button>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Usuń: {{ recipe.title }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Czy na pewno chcesz usunąć ten post ?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
+                <a role="button" href="{% url 'delete' id=recipe.id %}" class="btn btn-primary">Tak</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a class="btn btn-primary" href="{% url 'update' id=recipe.id %}" role="button">Edytuj</a>
+    {% endif %}
     <br><br>
 
     <div class="body_img">
@@ -20,23 +47,61 @@
 
     <span><b>Komentarze</b></span>
 
-    <form method="POST" action=".">{% csrf_token %}
+    {% if request.user.is_authenticated %}
+    <form method="POST" action="{% url 'comment_create' id=recipe.id %}">{% csrf_token %}
         {{ form_comment|crispy }}
-        <input type="submit" value="Send">
+        <input class="btn btn-primary" type="submit" value="Dodaj">
     </form>
-
+    {% endif %}
     <hr>
     <div>
+
     {% for comment in comments %}
 
         <blockquote>
             <p class="mb-0">{{ comment.body }}</p>
             <footer>
                 <small>{{ comment.user }} | {{ comment.created_at|timesince }} ago</small>
+
+                {% if request.user == comment.user %}
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{ comment.id|stringformat:"i" }}">
+                      Usuń
+                    </button>
+
+                    <div class="modal fade" id="exampleModal{{ comment.id|stringformat:"i" }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ comment.id|stringformat:"i" }}" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel{{ comment.id|stringformat:"i" }}">
+                                <blockquote>
+                                <p class="mb-0">{{ comment.body }}</p>
+                                <footer>
+                                    <small>{{ comment.user }} | {{ comment.created_at|timesince }} ago</small>
+                                </footer>
+                              </blockquote>
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Czy na pewno chcesz usunąć ten komentarz ?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
+                            <a role="button" href="{% url 'comment_delete' id=recipe.id idC=comment.id %}" class="btn btn-primary">Tak</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                {% endif %}
             </footer>
         </blockquote>
 
 
     {% endfor %}
+
+
     </div>
 {% endblock content %}
