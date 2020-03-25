@@ -13,3 +13,11 @@ blockquote p {
 .comment_div label.requiredField {
     display: none !important;
 }
+
+.messages {
+      margin-bottom: 0 !important;
+}
+
+ul {
+list-style-type: none;
+}
