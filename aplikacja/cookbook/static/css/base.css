@@ -26,9 +26,5 @@ list-style-type: none;
 }
 
 .django-ckeditor-widget {
-
-
-
     display: flex !important;
-
 }

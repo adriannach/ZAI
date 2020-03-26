@@ -29,8 +29,8 @@ def recipe_index(request):
     return render(request, 'index.html', context)
 
 def recipe_create(request):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
+    # if not request.user.is_staff or not request.user.is_superuser:
+    #     raise Http404
 
     if not request.user.is_authenticated:
         raise Http404
