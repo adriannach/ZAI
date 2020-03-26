@@ -6,7 +6,7 @@ $("form input[type=submit]").each(function(){
     $(this).addClass("btn btn-primary")
 })
 
-$("button, input[type=file]").each(function(){
+$(".crispy_forms_file button, input[type=file]").each(function(){
     $(this).addClass("btn btn-secondary disabled")
 })
 
