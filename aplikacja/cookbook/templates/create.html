@@ -10,11 +10,13 @@
 
 
 <h1>Dodaj</h1>
-<form method="POST" enctype="multipart/form-data">{% csrf_token %}
-    {{ form.media }}
-    {{ form|crispy }}
-<input type="submit" value="Dodaj"/>
-</form>
+    <div class="crispy_forms_file">
+        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+            {{ form.media }}
+            {{ form|crispy }}
+        <input type="submit" value="Dodaj"/>
+        </form>
+    </div>
     <br>
 
 </div>
