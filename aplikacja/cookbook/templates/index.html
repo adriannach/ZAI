@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="row row-cols-1 row-cols-md-2">
-{% for recipe in recipes %}
+    {% for recipe in recipes %}
 
     <div class="col mb-4">
         <div class="card">
@@ -19,24 +19,29 @@
             </div>
         </div>
     </div>
-
-{% endfor %}
-
-<div class="pagination">
-    <span class="step-links">
-        {% if recipes.has_previous %}
-            <a href="?page={{ recipes.previous_page_number }}{%  if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ recipes.number }} of {{ recipes.paginator.num_pages }}.
-        </span>
-
-        {% if recipes.has_next %}
-            <a href="?page={{ recipes.next_page_number }}{%  if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
-        {% endif %}
-    </span>
+    {% endfor %}
 </div>
 
-</div>
+    {% if recipes.has_next or recipes.has_previous  %}
+        <div class="container-fluid ml-0 mr-0">
+            <div class="d-flex justify-content-center ">
+              <ul class="pagination">
+
+                    {% if recipes.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ recipes.previous_page_number }}{%  if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&laquo;</a>
+                        </li>
+                    {% endif %}
+
+                <li class="page-item active">
+                  <a class="page-link" href="#">{{ recipes.number }}|{{ recipes.paginator.num_pages }}</a>
+                </li>
+
+                    {% if recipes.has_next %}
+                        <a class="page-link" href="?page={{ recipes.next_page_number }}{%  if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&raquo;</a>
+                    {% endif %}
+              </ul>
+            </div>
+        </div>
+    {% endif %}
 {% endblock content %}

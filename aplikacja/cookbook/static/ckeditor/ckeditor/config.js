@@ -19,8 +19,8 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'colors', groups: [ 'colors' ] },
 		{ name: 'tools', groups: [ 'tools' ] },
 		{ name: 'others', groups: [ 'others' ] },
-		{ name: 'about', groups: [ 'about' ] }
+		{ name: 'about', groups: [ 'about' ] },
 	];
-
+	language: 'de',
 	config.removeButtons = 'Source,Save,NewPage,Cut,Copy,Paste,PasteText,Replace,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Superscript,Subscript,CopyFormatting,CreateDiv,Language,Flash,PageBreak,Iframe,About,PasteFromWord,Anchor';
 };

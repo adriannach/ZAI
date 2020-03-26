@@ -17,7 +17,7 @@
     {{ recipe.user }}<small> dodano: {{ recipe.created_at }}, edytowano:{{ recipe.updated_at }}</small>
 
     {% if request.user == recipe.user %}
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
           Usuń
         </button>
 
@@ -41,7 +41,7 @@
           </div>
         </div>
 
-        <a class="btn btn-primary" href="{% url 'update' id=recipe.id %}" role="button">Edytuj</a>
+        <a class="btn btn-primary btn-sm" href="{% url 'update' id=recipe.id %}" role="button">Edytuj</a>
     {% endif %}
     <br><br>
 
@@ -49,8 +49,9 @@
         {{ recipe.body|safe }}<br>
     </div>
 
-    <span><b>Komentarze</b></span>
-
+    <div>
+    <h5>Komentarze</h5>
+    </div>
     {% if request.user.is_authenticated %}
         <div class="comment_div">
             <form method="POST" action="{% url 'comment_create' id=recipe.id %}">{% csrf_token %}
@@ -66,11 +67,11 @@
 
         <blockquote>
             <p class="mb-0">{{ comment.body }}</p>
-            <footer>
+            <footer class="mt-2">
                 <small>{{ comment.user }} | {{ comment.created_at|timesince }} ago</small>
 
                 {% if request.user == comment.user %}
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{ comment.id|stringformat:"i" }}">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal{{ comment.id|stringformat:"i" }}">
                       Usuń
                     </button>
 
