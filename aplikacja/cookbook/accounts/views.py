@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from .forms import UserLoginForm, UserRegisterForm
 
 def login_view(request):
-    title = "Login"
+    title = "Logowanie"
     form = UserLoginForm(request.POST or None)
     if form.is_valid():
         username = form.cleaned_data.get("username")
@@ -21,7 +21,7 @@ def login_view(request):
     return render(request, "form.html",{"form":form, "title":title})
 
 def register_view(request):
-    title = "Register"
+    title = "Rejestracja"
     form = UserRegisterForm(request.POST or None)
     if form.is_valid():
         user = form.save(commit=False)
