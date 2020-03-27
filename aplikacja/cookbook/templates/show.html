@@ -13,11 +13,11 @@
         <img src="{{ recipe.image.url }}" alt="img" class="img-fluid">
     {% endif %}
 
-    <h1>{{ recipe.title }}</h1>
-    {{ recipe.user }}<small> dodano: {{ recipe.created_at }}, edytowano:{{ recipe.updated_at }}</small>
+    <center><h1>{{ recipe.title }}</h1>
+    {{ recipe.user }}<small> dodano: {{ recipe.created_at }}, edytowano:{{ recipe.updated_at }}</small></center>
 
     {% if request.user == recipe.user %}
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+        <center><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
           Usuń
         </button>
 
@@ -41,7 +41,7 @@
           </div>
         </div>
 
-        <a class="btn btn-primary btn-sm" href="{% url 'update' id=recipe.id %}" role="button">Edytuj</a>
+            <a class="btn btn-primary btn-sm" href="{% url 'update' id=recipe.id %}" role="button">Edytuj</a></center>
     {% endif %}
     <br><br>
 

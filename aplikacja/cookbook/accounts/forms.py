@@ -9,8 +9,8 @@ from django.contrib.auth import (
 )
 User = get_user_model()
 class UserLoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(label='Login')
+    password = forms.CharField(widget=forms.PasswordInput, label='Hasło')
 
     def clean(self, *args, **kwargs):
         username = self.cleaned_data.get("username")
@@ -33,7 +33,7 @@ class UserLoginForm(forms.Form):
 class UserRegisterForm(forms.ModelForm):
     email = forms.EmailField(label='Adres email')
     email2 = forms.EmailField(label='Potwierdz email')
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput, label='Hasło')
 
     class Meta:
         model = User
