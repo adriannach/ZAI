@@ -27,6 +27,7 @@ urlpatterns = [
     path('register/', register_view),
     path('logout/', logout_view),
     path('', include('recipes.urls')),
+    path('', include('recipes.api.urls')),
     #url(r'^api-auth/', include('rest_framework.urls'))
 ]
 
