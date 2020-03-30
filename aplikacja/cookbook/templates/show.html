@@ -10,7 +10,9 @@
     <div class="container">
 
     {%  if recipe.image %}
-        <img src="{{ recipe.image.url }}" alt="img" class="img-fluid">
+        <div class="text-center">
+            <img src="{{ recipe.image.url }}" alt="img" class="img-fluid">
+        </div>
     {% endif %}
 
     <center><h1>{{ recipe.title }}</h1>
