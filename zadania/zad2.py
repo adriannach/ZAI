@@ -42,3 +42,11 @@ print(calculator.add())
 print(calculator.difference())
 print(calculator.multiply())
 print(calculator.divide())
+
+#6
+class ScienceCalculator(Calculator):
+    def pow(self):
+        return 'pow'
+
+science_calculator = ScienceCalculator()
+print(science_calculator.pow())
