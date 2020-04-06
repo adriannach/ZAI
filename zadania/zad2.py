@@ -50,3 +50,13 @@ class ScienceCalculator(Calculator):
 
 science_calculator = ScienceCalculator()
 print(science_calculator.pow())
+
+#7
+def funkcja2(x):
+    return x[::-1]
+
+x = input('Podaj tekst: ')
+x = str(x)
+print(funkcja2(x))
+
+
