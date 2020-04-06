@@ -1,15 +1,16 @@
 #1
-def funkcja(a_list = [2,1,3,4,5,6],b_list = [9,8,7,6,5,4]):
-    for p in a_list:
-        if (p % 2==0):
-            parzyste = [p]
-            print (parzyste)
-    for q in b_list:
-        if (q % 2 == 1):
-            nieparzyste = [q]
-            print (nieparzyste)
-    return()
+def funkcja(a_lista, b_lista):
+    c_lista = a_lista
+    for index, value in enumerate(a_lista):
+        if index % 2 == 0:
+            c_lista[index] = a_lista[index]
+        if index % 2 != 0:
+            c_lista[index] = b_lista[index]
+    return c_lista
 
-funkcja()
+
+list1 = [a, a, a, a, a, a, a, a, a, a]
+list2 = [b, b, b, b, b, b, b, b, b, b]
+print(funkcja(list1, list2))
 
 #2
