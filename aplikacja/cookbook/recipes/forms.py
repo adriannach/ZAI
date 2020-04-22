@@ -1,8 +1,9 @@
+from ckeditor.widgets import CKEditorWidget
 from django.forms import ModelForm, forms
 
 from .models import Recipe
 from django import forms
-from ckeditor.widgets import CKEditorWidget
+
 
 class RecipeForm(forms.ModelForm):
     title = forms.CharField(
