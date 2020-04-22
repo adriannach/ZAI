@@ -18,5 +18,7 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name = 'index'),
+    path('questions/', views.question_list),
+    path('questions/<int/pk>/', views.question_list),
+    path('questions/', views.question_list),
 ]
