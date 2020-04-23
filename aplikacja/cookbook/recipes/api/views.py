@@ -9,10 +9,29 @@ from rest_framework.permissions import (
 AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 )
 from .permissions import IsOwnerOrReadOnly
+from django.db.models import Q
+from rest_framework.filters import (
+    SearchFilter,
+    OrderingFilter
+)
+
+from .pagination import RecipeLimitOffsetPagination, RecipePageNumberPagination
+
 
 class RecipeIndexAPIView(ListAPIView):
-    queryset = Recipe.objects.all()
     serializer_class = RecipeIndexSerializer
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['title', 'body']
+    pagination_class = RecipePageNumberPagination
+
+    def get_queryset(self, *args, **kwargs):
+        recipes = Recipe.objects.all()
+        query = self.request.GET.get("q")
+        if query:
+            recipes = recipes.filter(Q(title__icontains=query) |
+                                     Q(body__icontains=query)
+                                     ).distinct()
+        return recipes
 
 class RecipeShowApiView(RetrieveAPIView):
     queryset = Recipe.objects.all()
