@@ -5,7 +5,7 @@
     {% for recipe in recipes %}
 
     <div class="col sm-6">
-        <div class="card">
+        <div class="card mb-4">
             {%  if recipe.image %}
                 <img src="{{ recipe.image.url }}" class="card-img-top" alt="...">
             {% endif %}
